@@ -48,39 +48,25 @@ ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, dou
 	_lastCurrent = 0.0;
 	_AHCounter = 0.0;
 	_CoulombCounter = 0.0;
-	
-	#ifdef SERIAL_DEBUG
-		if (Serial){
-			Serial.println("ACS7XX sensor object initialized");
-			Serial.print("PIN: ");
-			Serial.println(pintoread, DEC);
-			Serial.print("Sensitivity: ");
-			Serial.print(sensitivity, DEC);
-			Serial.println(" V/A");
-			Serial.print("device is ");
-			if(!bidir) Serial.print("not ");
-			Serial.println("bidirectional");
-			Serial.println("...... ...... ......");
-		}
-    #endif
+
 }
 
 /*========================================================================*/
 /*                           PUBLIC FUNCTIONS                             */
 /*========================================================================*/
 
-ACS7XX_ALLEGRO::instantCurrent(double *current)
+void ACS7XX_ALLEGRO::instantCurrent(double *current)
 {
 	int readvalue = analogRead(ACS7XX_ALLEGRO::_pintoread);
 	double readvolt = (((double) readvalue / _resolution) * _voltage) - _voltage_offset;
-	double readcurrent = readvolt / _sensitivity;
-	current = readcurrent;
-	_lastCurrent = readcurrent;
+	double readcur = readvolt / _sensitivity;
+	*current = readcur;
+	_lastCurrent = readcur;
 	
 	#ifdef SERIAL_DEBUG
 		if (Serial){
 			Serial.print("Current: ");
-			Serial.print(readcurrent, DEC);
+			Serial.print(readcur, DEC);
 			Serial.println(" A");
 		}
     #endif
@@ -88,21 +74,21 @@ ACS7XX_ALLEGRO::instantCurrent(double *current)
 	return;
 }
 
-ACS7XX_ALLEGRO::ampereHourCount(double *amperehc)
+void ACS7XX_ALLEGRO::ampereHourCount(double *amperehc)
 {
 	unsigned long currentmillis = millis();
 	double timeframehour = (double)(currentmillis - _lastMillis) / 3600000.0;
 	
 	double readcurrent;
-	ACS7XX_ALLEGRO::instantCurrent(readcurrent);
-	amperehc = readcurrent * timeframehour;
+	ACS7XX_ALLEGRO::instantCurrent(&readcurrent);
+	*amperehc = readcurrent * timeframehour;
 	
 	_lastMillis = currentmillis;
 
 	#ifdef SERIAL_DEBUG
 		if (Serial){
 			Serial.print("AmpHour: ");
-			Serial.print(amperehc, DEC);
+			Serial.print(*amperehc, DEC);
 			Serial.println(" Ah");
 			Serial.print("timeframe ");
 			Serial.print(timeframehour, DEC);
@@ -113,10 +99,10 @@ ACS7XX_ALLEGRO::ampereHourCount(double *amperehc)
 	return;
 }
 
-ACS7XX_ALLEGRO::updateCounters(void)
+void ACS7XX_ALLEGRO::updateCounters(void)
 {
 	double amperehcTemp;
-	ACS7XX_ALLEGRO::ampereHourCount(amperehcTemp);
+	ACS7XX_ALLEGRO::ampereHourCount(&amperehcTemp);
 	_lastAmperehour = amperehcTemp;
 	_AHCounter += amperehcTemp;
 	
@@ -132,7 +118,7 @@ ACS7XX_ALLEGRO::updateCounters(void)
 	return;
 }
 
-ACS7XX_ALLEGRO::resetCounters(void)
+void ACS7XX_ALLEGRO::resetCounters(void)
 {
 	_lastAmperehour = 0.0;
 	_AHCounter = 0.0;
@@ -148,7 +134,7 @@ ACS7XX_ALLEGRO::resetCounters(void)
 	return;
 }
 
-ACS7XX_ALLEGRO::updateMillis(void)
+void ACS7XX_ALLEGRO::updateMillis(void)
 {
 	_lastMillis = millis();
 
@@ -161,14 +147,32 @@ ACS7XX_ALLEGRO::updateMillis(void)
 	return;
 }
 
-ACS7XX_ALLEGRO::getAHCount(double *ahcount)
+void ACS7XX_ALLEGRO::getAHCount(double *ahcount)
 {
-	ahcount = _AHCounter;
+	*ahcount = _AHCounter;
 	return;
 }
 
-ACS7XX_ALLEGRO::getCoulombCount(double *ccount)
+void ACS7XX_ALLEGRO::getCoulombCount(double *ccount)
 {
-	ccount = _CoulombCounter;
+	*ccount = _CoulombCounter;
 	return;
+}
+
+void	printDebugDeviceInit(void)
+{	
+	#ifdef SERIAL_DEBUG
+		if (Serial){
+			Serial.println("ACS7XX sensor object initialized");
+			Serial.print("PIN: ");
+			Serial.println(_pintoread, DEC);
+			Serial.print("Sensitivity: ");
+			Serial.print(_sensitivity, DEC);
+			Serial.println(" V/A");
+			Serial.print("device is ");
+			if(!_bidir) Serial.print("not ");
+			Serial.println("bidirectional");
+			Serial.println("...... ...... ......");
+		}
+    #endif
 }

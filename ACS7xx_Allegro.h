@@ -72,6 +72,7 @@ class ACS7XX_ALLEGRO {
 	void	updateCounters(void);
 	void	getAHCount(double *ahcount);
 	void	getCoulombCount(double *ccount);
+	void	printDebugDeviceInit(void);
   
  private:
 	unsigned long	_lastMillis;
@@ -83,7 +84,7 @@ class ACS7XX_ALLEGRO {
 	
 	boolean	_bidir;
 	int		_pintoread;
-	double	_voltage
+	double	_voltage;
 	double	_voltage_offset;
 	double	_sensitivity;
 	double	_resolution;
