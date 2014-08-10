@@ -159,9 +159,9 @@ void ACS7XX_ALLEGRO::getCoulombCount(double *ccount)
 	return;
 }
 
-void	printDebugDeviceInit(void)
+void ACS7XX_ALLEGRO::printDebugDeviceInit(void)
 {	
-	/*
+	
 	//this is where compiler hangs
 	#ifdef SERIAL_DEBUG
 		if (Serial){
@@ -177,6 +177,6 @@ void	printDebugDeviceInit(void)
 			Serial.println("...... ...... ......");
 		}
     #endif
-	*/
+	
 	return;
 }
