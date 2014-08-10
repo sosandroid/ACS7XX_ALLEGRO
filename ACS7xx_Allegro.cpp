@@ -161,6 +161,8 @@ void ACS7XX_ALLEGRO::getCoulombCount(double *ccount)
 
 void	printDebugDeviceInit(void)
 {	
+	/*
+	//this is where compiler hangs
 	#ifdef SERIAL_DEBUG
 		if (Serial){
 			Serial.println("ACS7XX sensor object initialized");
@@ -175,4 +177,6 @@ void	printDebugDeviceInit(void)
 			Serial.println("...... ...... ......");
 		}
     #endif
+	*/
+	return;
 }
