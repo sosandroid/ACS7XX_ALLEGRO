@@ -54,8 +54,9 @@
 
 // Default values - default is ACS712-20A
 #define ACS7XX_BIDIR_DEFAULT true //Is the sensor bidirectional ?
-#define ACS7XX_PIN_DEFAULT	82 //Pin used  for measurements - default AD15 from Mega 2650
+#define ACS7XX_PIN_DEFAULT	0 //Pin used  for measurements - default A0 from Mega 2650
 #define ACS7XX_SENSITIVITY_DEFAULT  0.1 //Sensitivity of the sensor in V/A (divide per 1000 the datasheet value)
+#define BOARD_MEASURED_OFFSET 1 //ADC may shift its measurement. For instance a shitfted value of 1 out of 1024 steps represents 0.05A for ACS712. In perfect world, BOARD_MEASURED_OFFSET should be 0
 #define BOARD_VOLTAGE_DEFAULT 5.0 //Power supply voltage
 #define BOARD_ADC_DEPTH 1024.0 // 10bits: 1024.0, 12bits: 4096.0, 14bits: 16384.0
 

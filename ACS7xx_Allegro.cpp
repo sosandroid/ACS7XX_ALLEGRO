@@ -57,7 +57,7 @@ ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, dou
 
 void ACS7XX_ALLEGRO::instantCurrent(double *current)
 {
-	int readvalue = analogRead(ACS7XX_ALLEGRO::_pintoread);
+	int readvalue = analogRead(_pintoread) + BOARD_MEASURED_OFFSET;
 	double readvolt = (((double) readvalue / _resolution) * _voltage) - _voltage_offset;
 	double readcur = readvolt / _sensitivity;
 	*current = readcur;
@@ -65,6 +65,8 @@ void ACS7XX_ALLEGRO::instantCurrent(double *current)
 	
 	#ifdef SERIAL_DEBUG
 		if (Serial){
+			Serial.print("Read value on pin including offset: ");
+			Serial.println(readvalue, DEC);
 			Serial.print("Current: ");
 			Serial.print(readcur, DEC);
 			Serial.println(" A");
@@ -111,6 +113,12 @@ void ACS7XX_ALLEGRO::updateCounters(void)
 
 	#ifdef SERIAL_DEBUG
 		if (Serial){
+			Serial.print("AH counter ");
+			Serial.print(_AHCounter, DEC);
+			Serial.println(" AH");
+			Serial.print("Coulomb counter ");
+			Serial.print(_CoulombCounter, DEC);
+			Serial.println(" C");
 			Serial.println("Counters updated");
 		}
     #endif
