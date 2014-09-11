@@ -9,8 +9,8 @@
 
     @section  HISTORY
 
-	V1.1 - Moving exponential average + robustness
     v1.0 - First release
+	V1.1 - Moving exponential average + robustness
 */
 /**************************************************************************/
 

@@ -5,8 +5,8 @@
 	
     @section  HISTORY
 
-    v1.1 - Moving exponential average + robustness
 	v1.0 - First release
+    v1.1 - Moving exponential average + robustness
 
     Set of methods to use measurements from ACS7xx sensors from Allegro Micro
 	All those methods are made to be called periodically
