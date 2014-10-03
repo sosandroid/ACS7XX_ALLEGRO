@@ -63,7 +63,7 @@
 #define BOARD_VOLTAGE_DEFAULT 5.0 //Power supply voltage
 #define BOARD_ADC_DEPTH 1024.0 // 10bits: 1024.0, 12bits: 4096.0, 14bits: 16384.0
 // Moving Exponential Average init values
-#define EXP_MOVAVG_N 70	//history length impact on moving average impact - keep in mind the moving average will be impacted by the measurement frequency too
+#define EXP_MOVAVG_N 30	//history length impact on moving average impact - keep in mind the moving average will be impacted by the measurement frequency too
 #define EXP_MOVAVG_LOOP 1 //number of measurements before starting mobile Average - starting with a simple average - 1 allows a quick start. Value must be 1 minimum
 
 
@@ -72,6 +72,7 @@ class ACS7XX_ALLEGRO {
 	ACS7XX_ALLEGRO(void);
 	ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, double sensitivity);
 	
+	void	begin(boolean bidir, int pintoread, double voltage, double sensitivity);
 	void	instantCurrent(double *current); //calculates in mA
 	void	ampereHourCount(double *mamperehc); // mAh
 	void	resetCounters(void); // reset all counters

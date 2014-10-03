@@ -28,11 +28,20 @@
 /**************************************************************************/
 ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(void) 
 {
-	ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(ACS7XX_BIDIR_DEFAULT, ACS7XX_PIN_DEFAULT, BOARD_VOLTAGE_DEFAULT, ACS7XX_SENSITIVITY_DEFAULT);
+	ACS7XX_ALLEGRO::begin(ACS7XX_BIDIR_DEFAULT, ACS7XX_PIN_DEFAULT, BOARD_VOLTAGE_DEFAULT, ACS7XX_SENSITIVITY_DEFAULT);
 }
 
 ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, double sensitivity) 
 {
+	ACS7XX_ALLEGRO::begin(bidir, pintoread, voltage, sensitivity);
+}
+
+/*========================================================================*/
+/*                           PUBLIC FUNCTIONS                             */
+/*========================================================================*/
+
+void ACS7XX_ALLEGRO::begin(boolean bidir, int pintoread, double voltage, double sensitivity) {
+
 	_bidir = bidir;
 	_pintoread = pintoread;
 	_sensitivity = sensitivity;
@@ -55,12 +64,14 @@ ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, dou
 	_movavgexp_alpha = 2.0 / (EXP_MOVAVG_N + 1.0);
 	_movavgexp_loop = 0;
 	_movavgexp_val = 0.0;
-
+	
+	#ifdef SERIAL_DEBUG
+		if(!Serial) {
+			Serial.begin(9600);
+		}
+	#endif
+	return;
 }
-
-/*========================================================================*/
-/*                           PUBLIC FUNCTIONS                             */
-/*========================================================================*/
 
 void ACS7XX_ALLEGRO::instantCurrent(double *current)
 {
