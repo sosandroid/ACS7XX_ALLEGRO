@@ -3,6 +3,7 @@ Arduino library for ACS7xx current IC sensors from Allegromicro
 
 	v1.0 - First release
     v1.1 - Moving exponential average + robustness
+	v1.2 - Modify the constructor call to avoid some errors
 
 ACS7xx sensors are hall effect sensors IC ranging from 0A to 50A for AC or DC current. They are suitable for use with Arduino boards either 5V or 3.3V according to your choice.
 

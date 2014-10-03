@@ -11,6 +11,7 @@
 
     v1.0 - First release
 	V1.1 - Moving exponential average + robustness
+	v1.2 - Modify the constructor call to avoid some errors
 */
 /**************************************************************************/
 
@@ -28,24 +29,27 @@
 /**************************************************************************/
 ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(void) 
 {
-	ACS7XX_ALLEGRO::begin(ACS7XX_BIDIR_DEFAULT, ACS7XX_PIN_DEFAULT, BOARD_VOLTAGE_DEFAULT, ACS7XX_SENSITIVITY_DEFAULT);
+	_bidir = ACS7XX_BIDIR_DEFAULT;
+	_pintoread = ACS7XX_PIN_DEFAULT;
+	_sensitivity = ACS7XX_SENSITIVITY_DEFAULT;
+	_voltage = BOARD_VOLTAGE_DEFAULT;
 }
 
 ACS7XX_ALLEGRO::ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, double sensitivity) 
 {
-	ACS7XX_ALLEGRO::begin(bidir, pintoread, voltage, sensitivity);
+	_bidir = bidir;
+	_pintoread = pintoread;
+	_sensitivity = sensitivity;
+	_voltage = voltage;
 }
 
 /*========================================================================*/
 /*                           PUBLIC FUNCTIONS                             */
 /*========================================================================*/
 
-void ACS7XX_ALLEGRO::begin(boolean bidir, int pintoread, double voltage, double sensitivity) {
+void ACS7XX_ALLEGRO::begin(void) {
 
-	_bidir = bidir;
-	_pintoread = pintoread;
-	_sensitivity = sensitivity;
-	_voltage = voltage;
+
 	if (_bidir) {
 		_voltage_offset = voltage / 2.0;
 	} 

@@ -7,6 +7,7 @@
 
 	v1.0 - First release
     v1.1 - Moving exponential average + robustness
+	v1.2 - Modify the constructor call to avoid some errors
 
     Set of methods to use measurements from ACS7xx sensors from Allegro Micro
 	All those methods are made to be called periodically
@@ -72,7 +73,7 @@ class ACS7XX_ALLEGRO {
 	ACS7XX_ALLEGRO(void);
 	ACS7XX_ALLEGRO(boolean bidir, int pintoread, double voltage, double sensitivity);
 	
-	void	begin(boolean bidir, int pintoread, double voltage, double sensitivity);
+	void	begin(void);
 	void	instantCurrent(double *current); //calculates in mA
 	void	ampereHourCount(double *mamperehc); // mAh
 	void	resetCounters(void); // reset all counters

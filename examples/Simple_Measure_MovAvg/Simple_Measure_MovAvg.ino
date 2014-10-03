@@ -9,6 +9,7 @@
     @section  HISTORY
 
     v1.0 - First release
+	v1.1 - Integrate constructor call fix
 	
 */
 /**************************************************************************/
@@ -25,17 +26,19 @@ void setup() {
 	Serial.begin(9600);
 	while (!Serial) ; //wait until Serial ready
 	
-        Serial.println("Starting...");
-        //check serial output now
-        mysensor.printDebugDeviceInit();
+	mysensor.begin();
+	
+	Serial.println("Starting...");
+	//check serial output now
+	mysensor.printDebugDeviceInit();
 }
 
 void loop() {
-  mysensor.instantCurrent(&courant);
-  Serial.print("courant mesure: ");
-  Serial.println(courant, DEC);
-  Serial.print("moyenne mouvante: ");
-  Serial.println(mysensor.getMovingAvgExp(), DEC);
-  
-  delay(3000);
+	mysensor.instantCurrent(&courant);
+	Serial.print("courant mesure: ");
+	Serial.println(courant, DEC);
+	Serial.print("moyenne mouvante: ");
+	Serial.println(mysensor.getMovingAvgExp(), DEC);
+	
+	delay(3000);
 }
