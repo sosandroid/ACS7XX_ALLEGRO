@@ -12,6 +12,7 @@
     v1.0 - First release
 	V1.1 - Moving exponential average + robustness
 	v1.2 - Modify the constructor call to avoid some errors
+	v1.2.1 - Fix issue #1
 */
 /**************************************************************************/
 
@@ -51,7 +52,7 @@ void ACS7XX_ALLEGRO::begin(void) {
 
 
 	if (_bidir) {
-		_voltage_offset = voltage / 2.0;
+		_voltage_offset = _voltage / 2.0;
 	} 
 	else {
 		_voltage_offset = 0.0;
