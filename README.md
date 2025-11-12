@@ -11,6 +11,7 @@ ACS712 and ACS7XX sensors are hall effect sensors IC ranging from 0A to 50A for 
 	v1.2 - Modify the constructor call to avoid some errors
 	v1.2.1 - Fix issue #1
 
+[![Buy me a coffee](./res/default-yellow.png)](https://www.buymeacoffee.com/ju9hJ8RqGk)
 
 ## Features ##
 - Get instant current
